@@ -15,9 +15,9 @@ function offset {
     cut -d " " -f "$1" <<< "$2"
 }
 
-file="$1"
-language="$2"
-title="$3"
+file=$1
+language=$2
+title=$3
 
 if [ "$file" == - ]; then
     file=/dev/stdin
