@@ -36,4 +36,5 @@ if [ -z "$redirect_url" ]; then
     exit 2
 fi
 
+echo test
 echo "$redirect_url"
