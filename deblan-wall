@@ -1,39 +1,62 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
-function paste {
+# Uploads data on Deblan.
+#
+# $1: Source code
+# $2: Language
+# $3: Title
+paste() {
+    local code=$1; shift
+    local language=$1; shift
+    local title=$1; shift
+
     curl \
-        --data-urlencode code="$1" \
-        --data-urlencode language="$2" \
-        --data-urlencode title="$3" \
+        --data-urlencode code="$code" \
+        --data-urlencode language="$language" \
+        --data-urlencode title="$title" \
         -o /dev/null \
         -s \
         -w "%{http_code} %{redirect_url}" \
         "https://wall.deblan.org/"
 }
 
-function offset {
-    cut -d " " -f "$1" <<< "$2"
+# Gets an offset of a space separated string.
+#
+# $1: Offset
+# $2: String
+offset() {
+    local -i offset=$1; shift
+    local string=$1; shift
+
+    cut -d " " -f "$offset" <<< "$data"
 }
 
-file=$1
-language=$2
-title=$3
+# $1: Input file
+# $2: Language
+# $3: Title
+main() {
+    local file=$1; shift
+    local language=$1; shift
+    local title=$1; shift
 
-if [ "$file" == - ]; then
-    file=/dev/stdin
-elif [ ! -f "$file" ]; then
-    echo "Invalid file." >&2
-    exit 1
-fi
+    if [ "$file" == - ]; then
+        file=/dev/stdin
+    elif [ ! -f "$file" ]; then
+        echo "Invalid file." >&2
+        exit 1
+    fi
 
-code=$(cat "$file")
-response=$(paste "$code" "$language" "$title")
-http_code=$(offset 1 "$response")
-redirect_url=$(offset 2 "$response")
+    local code=$(cat "$file")
+    local response=$(paste "$code" "$language" "$title")
+    local http_code=$(offset 1 "$response")
+    local redirect_url=$(offset 2 "$response")
 
-if [ -z "$redirect_url" ]; then
-    echo "An error occurred, got $http_code response code." >&2
-    exit 2
-fi
+    if [ -z "$redirect_url" ]; then
+        echo "An error occurred, got $http_code response code." >&2
+        exit 2
+    fi
 
-echo "$redirect_url"
+    echo "$redirect_url"
+}
+
+main "$@"
