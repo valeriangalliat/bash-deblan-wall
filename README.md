@@ -32,20 +32,22 @@ curl -kL wall.deblan.org | xidel - --css "#adding-language > button" -e "css('#a
 
 A typical output at this time is the following.
 
-    HTML                                html
-    XML                                 xml
-    CSS                                 css
-    JAVASCRIPT                          javascript
-    PHP                                 php
-    SQL                                 sql
-    YAML                                yaml
-    PERL                                perl
-    C/C++                               c
-    ASP                                 asp
-    PYTHON                              python
-    BASH                                bash
-    ACTION SCRIPT                       actionscript
-    TEXTE                               texte
+| Name          | Value        |
+| ------------- | ------------ |
+| HTML          | html         |
+| XML           | xml          |
+| CSS           | css          |
+| JAVASCRIPT    | javascript   |
+| PHP           | php          |
+| SQL           | sql          |
+| YAML          | yaml         |
+| PERL          | perl         |
+| C/C++         | c            |
+| ASP           | asp          |
+| PYTHON        | python       |
+| BASH          | bash         |
+| ACTION SCRIPT | actionscript |
+| TEXTE         | texte        |
 
 Example
 -------
