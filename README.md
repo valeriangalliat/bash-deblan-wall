@@ -30,8 +30,7 @@ to extract data from HTML).
 curl -kL wall.deblan.org | xidel - --css "#adding-language > button" -e "css('#adding-language > button')/@value" 2> /dev/null | pr -2
 ```
 
-A typical output at this time is the following (the second column is the
-value to pass for the language argument).
+A typical output at this time is the following.
 
 <table>
   <tbody>
@@ -43,7 +42,7 @@ value to pass for the language argument).
     <tr><td>SQL</td><td>sql</td></tr>
     <tr><td>YAML</td><td>yaml</td></tr>
     <tr><td>PERL</td><td>perl</td></tr>
-    <tr><td>C/C</td><td>c</td></tr>
+    <tr><td>C/C++</td><td>c</td></tr>
     <tr><td>ASP</td><td>asp</td></tr>
     <tr><td>PYTHON</td><td>python</td></tr>
     <tr><td>BASH</td><td>bash</td></tr>
