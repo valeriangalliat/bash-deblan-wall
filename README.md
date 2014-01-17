@@ -1,7 +1,7 @@
 Deblan Wall Upload
 ==================
 
-Upload a text file on Deblan wall service.
+Upload a text file on [Deblan wall service](https://wall.deblan.org/).
 
 Description
 -----------
