@@ -6,7 +6,7 @@ Upload a text file on Deblan wall service.
 Description
 -----------
 
-Uses cURL to upload a code file on Deblan, with given language and description.
+Uses cURL to upload code on Deblan, with given language and description.
 
 Dependencies
 ------------
@@ -29,6 +29,23 @@ to extract data from HTML).
 ```sh
 curl -kL wall.deblan.org | xidel - --css "#adding-language > button" -e "css('#adding-language > button')/@value" 2> /dev/null | pr -2
 ```
+
+A typical output at this time is the following.
+
+    HTML                                html
+    XML                                 xml
+    CSS                                 css
+    JAVASCRIPT                          javascript
+    PHP                                 php
+    SQL                                 sql
+    YAML                                yaml
+    PERL                                perl
+    C/C++                               c
+    ASP                                 asp
+    PYTHON                              python
+    BASH                                bash
+    ACTION SCRIPT                       actionscript
+    TEXTE                               texte
 
 Example
 -------
