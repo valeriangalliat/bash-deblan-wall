@@ -55,5 +55,5 @@ Example
 -------
 
 ```sh
-deblan-wall-up foo.php php "Foo script"
+dwall foo.php php "Foo script"
 ```
