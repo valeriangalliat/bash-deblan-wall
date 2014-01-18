@@ -1,5 +1,5 @@
-Deblan Wall Upload
-==================
+Dwall
+=====
 
 Upload a text file on [Deblan wall service](https://wall.deblan.org/).
 
