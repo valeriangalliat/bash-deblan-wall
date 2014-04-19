@@ -51,8 +51,8 @@ A typical output at this time is the following.
   </tbody>
 </table>
 
-Example
--------
+Examples
+--------
 
 ```sh
 dwall foo.php php "Foo script"
