@@ -1,8 +1,23 @@
-#!/usr/bin/env sh
+#!/bin/sh -e
+#
+# Usage: dwall [options] [<file>]
+#
+# Arguments:
+#   <file>  File to upload, `stdin` by default.
+#
+# Options:
+#   -h, --help                 Show this screen.
+#   -l, --language <language>  Programming language of the uploaded file.
+#   -t, --title <title>        Title of the paste.
+#
 
-set -e
+readonly PROGFILE=$0
 
-# Uploads data on Deblan.
+help() {
+    sed -nr '1,2d;/^#/!q;s/^# ?//p' < "$PROGFILE"
+}
+
+# Upload on Deblan.
 #
 # $1: Source code
 # $2: Language (can be empty)
@@ -13,16 +28,17 @@ paste() {
     title=$1; shift
 
     curl \
-        -ksS \
+        -sS \
         -o /dev/null \
         -w "%{http_code} %{redirect_url}" \
         --data-urlencode code="$code" \
         --data-urlencode language="$language" \
         --data-urlencode title="$title" \
+        --data-urlencode line=1 \
         "https://wall.deblan.org/"
 }
 
-# Gets an offset of a space separated string.
+# Get an offset of a space separated string.
 #
 # $1: Offset
 # $2: String
@@ -37,15 +53,23 @@ offset() {
 # $2: Language (optional)
 # $3: Title (optional)
 main() {
-    file=$1; shift
-    language=$1
-    title=$2
+    language=
+    title=
 
-    if [ "$file" = - ]; then
-        file=/dev/stdin
-    elif [ ! -f "$file" ]; then
-        echo "Invalid file." >&2
-        exit 1
+    while [ $# -gt 0 ]; do
+        case "$1" in
+            -h|--help) help; exit ;;
+            -l|--language) language=$2; shift 2 ;;
+            -t|--title) title=$2; shift 2 ;;
+            -*) echo "Unknown option: $1" >&2; exit 1 ;;
+        esac
+    done
+
+    file=${1:-/dev/stdin}
+
+    if [ ! -e "$file" ]; then
+        echo "Invalid file: $file" >&2
+        exit 2
     fi
 
     code=$(cat "$file")
@@ -55,7 +79,7 @@ main() {
 
     if [ -z "$redirect_url" ]; then
         echo "An error occurred, got $http_code response code." >&2
-        exit 2
+        exit 3
     fi
 
     echo "$redirect_url"
