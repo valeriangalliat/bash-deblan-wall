@@ -35,7 +35,6 @@ extract data from HTML).
 ```sh
 curl -kL wall.deblan.org \
   | xidel - \
-
       -e "css('#adding-language > button')/@value" \
       2> /dev/null \
   | pr -2
