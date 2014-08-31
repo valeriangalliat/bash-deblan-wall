@@ -69,11 +69,14 @@ dwall -l php -t 'Foo script' foo.php
 Vim integration
 ---------------
 
+**Warning:** there's currently a bug with `shellescape`: a trailing
+baskslash is appended to each line.
+
 Add the following to your vimrc:
 
 ```vim
 function! Dwall(line1, line2, ...) range
-    let buffer=join(getline(a:line1, a:line2), '\n')
+    let buffer=join(getline(a:line1, a:line2), "\n")
     let args=(a:0 > 0) ? a:0 : ''
     echom system('echo '.shellescape(buffer).' | dwall '.args)
 endfunction
