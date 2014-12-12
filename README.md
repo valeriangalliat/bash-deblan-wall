@@ -1,5 +1,5 @@
-`dwall`
-=======
+dwall
+=====
 
 > Upload a text file on [Deblan wall service](https://wall.deblan.org/).
 
@@ -22,7 +22,7 @@ Options:
 Dependencies
 ------------
 
-- `curl`
+- curl
 
 Languages
 ---------
@@ -69,25 +69,13 @@ dwall -l php -t 'Foo script' foo.php
 Vim integration
 ---------------
 
-**Warning:** there's currently a bug with `shellescape`: a trailing
-baskslash is appended to each line.
+This repository is also a valid Vim plugin. Just include it with your
+favorite plugin manager.
 
-Add the following to your vimrc:
-
-```vim
-function! Dwall(line1, line2, ...) range
-    let buffer=join(getline(a:line1, a:line2), "\n")
-    let args=(a:0 > 0) ? a:0 : ''
-    echom system('echo '.shellescape(buffer).' | dwall '.args)
-endfunction
-
-command! -nargs=? -range=% Dwall :call Dwall(<line1>, <line2>, <f-args>)
-```
-
-Then you can use it like this (while being in a file buffer):
+It's basically a wrapper for the dwall command.
 
 ```
 :Dwall -title -l php 'Foo script'
 ```
 
-It will print the paste URL in the bottom line.
+It will print the paste URL in the status line.

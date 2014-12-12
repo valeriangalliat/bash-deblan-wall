@@ -3,7 +3,7 @@
 # Usage: dwall [options] [<file>]
 #
 # Arguments:
-#   <file>  File to upload, `stdin` by default.
+#   <file>  File to upload [default: stdin].
 #
 # Options:
 #   -h, --help                 Show this screen.
@@ -17,11 +17,13 @@ help() {
     sed -nr '1,2d;/^#/!q;s/^# ?//p' < "$PROGFILE"
 }
 
+#
 # Upload on Deblan.
 #
-# $1: Source code
-# $2: Language (can be empty)
-# $3: Title (can be empty)
+# 1. Source code.
+# 2. Language (can be empty).
+# 3. Title (can be empty).
+#
 paste() {
     code=$1; shift
     language=$1; shift
@@ -30,18 +32,20 @@ paste() {
     curl \
         -sS \
         -o /dev/null \
-        -w "%{http_code} %{redirect_url}" \
+        -w '%{http_code} %{redirect_url}' \
         --data-urlencode code="$code" \
         --data-urlencode language="$language" \
         --data-urlencode title="$title" \
         --data-urlencode line=1 \
-        "https://wall.deblan.org/"
+        'https://wall.deblan.org/'
 }
 
+#
 # Get an offset of a space separated string.
 #
-# $1: Offset
-# $2: String
+# 1. Offset.
+# 2. String.
+#
 offset() {
     offset=$1; shift
     string=$1; shift
@@ -49,9 +53,11 @@ offset() {
     echo "$string" | cut -d " " -f "$offset"
 }
 
-# $1: Input file
-# $2: Language (optional)
-# $3: Title (optional)
+#
+# 1. Input file.
+# 2. Language (optional).
+# 3. Title (optional).
+#
 main() {
     language=
     title=
