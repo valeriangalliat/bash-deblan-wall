@@ -1,4 +1,4 @@
-if exists('g:loaded_dwall')
+if exists('g:loaded_dwall') || &compatible
     finish
 endif
 
